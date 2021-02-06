@@ -1,0 +1,37 @@
+#1
+wc -l /usr/local/tmpIMA/printaccounting
+
+#2
+grep "|aborted$" /usr/local/tmpIMA/printaccounting | wc -l
+#grep -c "|aborted$" /usr/local/tmpIMA/printaccounting
+
+#3
+egrep -c "\|[^aborted|none]$" /usr/local/tmpIMA/printaccounting
+
+#4
+grep -c "|reuze|aborted$" /usr/local/tmpIMA/printaccounting
+
+#5
+cat /usr/local/tmpIMA/printaccounting | grep -c "kipper[0-9]"
+
+#6
+cat /usr/local/tmpIMA/printaccounting | grep -c "|kipper[0-9][0-9]|"
+
+#7
+cat /usr/local/tmpIMA/printaccounting | grep -c "|gayant|.*$"
+
+#8
+cat /usr/local/tmpIMA/printaccounting | grep "|gayant|[1-9][0-9]*$" | sed -e 's/^\(.*|\)\(.*\)/\2/' | tr "\n" "+" | sed -e 's/\(.*\)\(.\)/\1\n/' | bc
+#cat /usr/local/tmpIMA/printaccounting | grep "|gayant|[1-9][0-9]*$" | cut -f5 -d\| | tr "\n" "+" | sed -e 's/\(.*\)\(.\)/\1\n/' | bc
+
+#9
+cat /usr/local/tmpIMA/printaccounting | egrep -c "\|reuze\|[0-9]|\|gayant\|[0-9]"
+
+#10
+cat /usr/local/tmpIMA/printaccounting | cut -f5 -d\| | grep "[1-9][0-9]*" | sort -n | tail -10
+
+#11
+cat /usr/local/tmpIMA/printaccounting | grep "[1-9][0-9]*" | sort -t\| -k 5nr -k4 -k2 | more
+
+#12
+cat /usr/local/tmpIMA/printaccounting | sed -e 's/^\([^|]*\)|.*\(|.*|\)aborted$/\1\2erreur/' | more

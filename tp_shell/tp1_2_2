@@ -1,0 +1,15 @@
+#1
+db_dump -p /usr/nsswitch/temp_pat | sort | uniq | grep kdoolaeg
+
+#2
+db_dump -p /usr/nsswitch/temp_groups | sed -e "s/^ \(.*\)::\(.*\):\(.*\)/\1:\2\n/" | sed '/=/d' | sed '/^$/d' | sed '/ /d' | sort -t: -k2n | uniq > /tmp/groups
+
+#3
+db_dump -p /usr/nsswitch/temp_pat | grep ':' | tr -d ' ' | sed -e 's/^\(.*\)\\00/\1/' | sort -k4n -t: | uniq > /tmp/users
+
+#4
+#cat /tmp/users /tmp/groups > /tmp/users_groups
+join -t: -1 2 -2 4 /tmp/groups /tmp/users > /tmp/users_groups
+
+#5
+cat /tmp/users_groups | sed -e 's/^\(.*\):\(.*\)/\2:\1/' | tail

@@ -1,0 +1,49 @@
+#1.1.
+ps -U kdoolaeg -u
+
+#1.2.
+pstree
+
+#1.3.
+ps -aux | grep boucle.sh
+kill <pid>
+kill -9 'ps -aux | grep boucle.sh | tr -s " " | cut -d\  -f2'
+
+#2.1.
+Ctl+Z (^Z) pour suspendre.
+
+#2.2.
+jobs
+fg %1
+
+#3.1.
+./boucle.sh &
+
+#3.2.
+Le terminal peut être utilisé pour de nouvelles commandes.
+
+#3.3.
+Ctr+C et Ctr+Z ne fonctionnent pas car le processus est en arrière plan.
+Ces commandes ne fonctionnent uniquement sur le processus courant.
+
+#3.4.
+kill %1
+
+#3.5.
+tty
+./boucle.sh > /dev/pts/1
+
+#3.6.
+./boucle2.sh > /dev/pts/0 &
+
+#3.7.
+jobs
+kill -SIGSTOP %1
+
+#3.8.
+bg %1
+kill -SIGSTOP %3
+fg %2
+
+#3.9.
+kill -9 %1 %3

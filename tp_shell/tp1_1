@@ -1,0 +1,38 @@
+#1
+#ls /usr/bin | more
+
+#2
+man cat > catAide.txt
+
+#3
+cat > titreCat.txt << EOF
+----------------
+- COMMANDE CAT -
+- EXPLICATIONS -
+----------------
+EOF
+
+#4
+cat titreCat.txt catAide.txt > catTitreAide.txt
+
+#5
+cat strange.txt 2> /dev/null
+#cat strange.txt 2> err.txt
+
+#6
+cat > main.c << EOF
+#include <stdio.h>
+int main() {
+fprintf(stdout, "message sur la sortie standard\n");
+fprintf(stderr, "message sur la sortie d'erreur\n");
+return 0;
+}
+EOF
+gcc main.c -Wall -Werror -o main
+./main > /dev/null
+
+#7
+man sort | grep sort | tail -n 5
+
+#8
+ls -rl /dev/f* | more
